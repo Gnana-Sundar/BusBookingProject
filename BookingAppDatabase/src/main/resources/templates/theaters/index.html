@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous">
+    <title>Ticket Booking</title>
+</head>
+<body>
+    <div class="container-fluid p-5">
+        <h1 class="text-center">Welcome To Our Book My Show</h1>
+        <div class="row">
+            <div class="col-6">
+                <a class="btn btn-success" href="/theaters/getTheaters">Theaters</a>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Theater Id</th>
+                <th scope="col">Theater Name</th>
+                <th scope="col">Location</th>
+                <th scope="col">View</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="theater : ${theaters}">
+                <th scope="row" th:text="${theater.theat_id}"></th>
+                <td th:text="${theater.theat_name}"></td>
+                <td th:text="${theater.theat_location}"></td>
+                <td><a th:href="@{/theaters/getMovies/{name}(name=${theater.theat_name})}" class="btn btn-success">View</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${message}" id="alertMessage" class="alert alert-success m-4" role="alert">
+        <p th:text="${message}"></p>
+    </div>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        var alertMessage = document.getElementById("alertMessage");
+
+        if (alertMessage) {
+            setTimeout(function() {
+                alertMessage.style.display = 'none'; // Hide the element
+            }, 2000); // 2000 milliseconds = 2 seconds
+        }
+    });
+</script>
+
+</html>
